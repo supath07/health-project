@@ -1,0 +1,139 @@
+file structure--->>
+
+
+
+-----> pages/
+-- 1-home.php (Home page)
+-- 2-advice.php (Advice page)
+-- 3-forecast.php (Weather Forecast page)
+-- 4-register.php (Sign Up page)
+-- 5-sign-in.php (Sign in page)
+-- 6-log-out.php (Log out page- redirect to home)
+
+-----> static/
+-- a-style.css
+-- b-script.js (API)
+
+
+----> includes/
+-- header.php (Header)
+-- footer.php (Footer)
+-- db_connect.php (Build connection with database)
+
+
+----->> database design
+health-1 --- database / tables/ 
+user:
+<<-->> user_id (INT, PK, A_I)
+<<-->> full_name (VARCHAR)
+<<-->> username (VARCHAR, UNIQUE)
+<<-->> email (VARCHAR, UNIQUE)
+<<-->> password (VARCHAR)
+<<-->> time_created (DT, TIMESTAMP)
+
+health:
+<<-->> entry_id (INT, PK, A_I)
+<<-->> user_id (INT, FK)
+<<-->> symptoms (VARCHAR)
+<<-->> date_recorder (DT, time_stamp)
+
+weather:
+<<-->> weather_id(PK, A_I, INT)
+<<-->> location_id (FK, INT)
+<<-->> temperature (DECIMAL)
+<<-->> condition (VARCHAR, 255)
+<<-->> pollen (VARCHAR)
+<<-->> date (DATE)
+
+location:
+<<-->> location_id (INT, PK, A_I)
+<<-->> city (VARCHAR)
+<<-->> country (VARCHAR)
+<<-->> latitude (DECIMAL)
+<<-->> longitude (DECIMAL)
+
+air_quality:
+<<-->> aq_id (INT, PK, A_I)
+<<-->> location_id (INT, FK)
+<<-->> aqi (DECIMAL)
+<<-->> date (DATE, TIMESTAMP)
+
+advice:
+<<-->> advice_id (INT, PK, A_I)
+<<-->> condition_type (VARCHAR)
+<<-->> advice (VARCHAR)
+
+
+->> 1-home.php
+---<<--- Contains header and footer with about us section on main form. And has a features section with links to the pages for them.
+
+->> 2-advice.php
+idea--
+-->>-- pull User profile from users table...
+    -- age, health conditions
+    -- saved location
+-->>-- environmental datA(via apis)
+    -- temperature, humidity, UV index
+    -- air quality (PM2.5, PM10, AQI)
+    -- Pollen forecast via open meteo
+-->>-- pull Health logs from health_logs table
+    -- symptoms like asthma, hay fever, headaches?..
+
+logic--
+== Rule-based engine
+-- IF temp > 30C- the web will show heatwave advice card
+-- IF AQI > 100- it will show air quality warning card
+-- IF symptom=asthma and AQI > 50 -> show asthma-specific advice 
+-- IF pollen is high and symptom = hay fever-> show allergy management time_stamp
+
+page layout would be like this---
+--> hero section-- personalised health advice
+--> stats panel-- show today's weather + aqi for their location
+--> advice cards-- Each card will have one piece of advice with icon + short TEXT
+--> optional cta-- log a symptom -- then send 'em to dashboard
+
+Icons for each advice type 
+save advice to dashboard
+
+
+->> 7-dashboard.php 
+idea-- 
+
+-->>-- environmental data = weather + air quality from apis 
+-->>-- user data = location, health logs ,and  profile info 
+-->>-- actionable insights like summaries alerts and trends 
+
+-->>-- user profile - their name for greeting
+                    - saved location 
+-->>-- environmental data - current AQI, PM2.5, PM10 
+                          - current temperature & humidity 
+                          - or add 3 days forecast summary 
+-->>-- user health logs - recent symptoms 
+                        - maybe add some notes as well 
+
+logic--
+
+== Air quality alerts 
+- IF aqi > 100 -> unhealthy air, limit outdoor activity
+- IF aqi > 50 and user has asthma logs -> asthma risk alert 
+
+== Weather alerts 
+- IF temp > 30 -> Heat stress warning 
+- IF temp < 5 -> Cold stress warning 
+
+== Health log insights 
+- Show last 5 logs 
+- highlight correlations like 'you logged hay feveer on 3 high pollen days' 
+
+page layout would be like this--- 
+--> a welcome banner- like, hello, user- here's your health snapshot 
+--> Location panel- show saved city?.... option to update or auto-locate 
+--> air quality card- AQI, PM2.5, PM10 with color-coded severity 
+--> weather card: current temp, humidity, feels-like 
+--> health-logs card- quick add form 
+-- advice summary-- pull in rules from 2-advice.php to show "today's key advice"
+
+
+
+
+
