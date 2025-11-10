@@ -31,33 +31,6 @@ user:
 <<-->> password (VARCHAR)
 <<-->> time_created (DT, TIMESTAMP)
 
-health:
-<<-->> entry_id (INT, PK, A_I)
-<<-->> user_id (INT, FK)
-<<-->> symptoms (VARCHAR)
-<<-->> date_recorder (DT, time_stamp)
-
-weather:
-<<-->> weather_id(PK, A_I, INT)
-<<-->> location_id (FK, INT)
-<<-->> temperature (DECIMAL)
-<<-->> condition (VARCHAR, 255)
-<<-->> pollen (VARCHAR)
-<<-->> date (DATE)
-
-location:
-<<-->> location_id (INT, PK, A_I)
-<<-->> city (VARCHAR)
-<<-->> country (VARCHAR)
-<<-->> latitude (DECIMAL)
-<<-->> longitude (DECIMAL)
-
-air_quality:
-<<-->> aq_id (INT, PK, A_I)
-<<-->> location_id (INT, FK)
-<<-->> aqi (DECIMAL)
-<<-->> date (DATE, TIMESTAMP)
-
 advice:
 <<-->> advice_id (INT, PK, A_I)
 <<-->> condition_type (VARCHAR)
